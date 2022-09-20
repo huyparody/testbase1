@@ -12,31 +12,31 @@ import Foundation
 import UIKit
 
 extension String {
-    func trim() -> String {
+    public func trim() -> String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
-    func index(from: Int) -> Index {
-           return self.index(startIndex, offsetBy: from)
-       }
+    public func index(from: Int) -> Index {
+        return self.index(startIndex, offsetBy: from)
+    }
     
-    func substring(from: Int) -> String {
+    public func substring(from: Int) -> String {
         let fromIndex = index(from: from)
         return String(self[fromIndex...])
     }
-
-    func substring(to: Int) -> String {
+    
+    public func substring(to: Int) -> String {
         let toIndex = index(from: to)
         return String(self[..<toIndex])
     }
     
-    func substring(with r: Range<Int>) -> String {
+    public func substring(with r: Range<Int>) -> String {
         let startIndex = index(from: r.lowerBound)
         let endIndex = index(from: r.upperBound)
         return String(self[startIndex..<endIndex])
     }
     
-    var isEmail: Bool {
+    public var isEmail: Bool {
         do {
             let regex = try NSRegularExpression(pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}", options: .caseInsensitive)
             return regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.count)) != nil
@@ -45,11 +45,11 @@ extension String {
         }
     }
     
-    var underLined: NSAttributedString {
+    public var underLined: NSAttributedString {
         NSMutableAttributedString(string: self, attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
     }
     
-    var isSpecialCharacter: Bool {
+    public var isSpecialCharacter: Bool {
         do {
             let converted = self.lowercased().replacingOccurrences(of: "đ", with: "d").folding(options: .diacriticInsensitive, locale: .current)
             let regex = try NSRegularExpression(pattern: ".*[^A-Za-z0-9 ].*", options: [])
@@ -62,7 +62,7 @@ extension String {
         return false
     }
     
-    var isSpecialCharacterWithoutNumber: Bool {
+    public var isSpecialCharacterWithoutNumber: Bool {
         do {
             let converted = self.lowercased().replacingOccurrences(of: "đ", with: "d").folding(options: .diacriticInsensitive, locale: .current)
             let regex = try NSRegularExpression(pattern: ".*[^A-Za-z ].*", options: [])
@@ -76,14 +76,14 @@ extension String {
     }
     
     //validate Phone
-    var isPhone: Bool {
+    public var isPhone: Bool {
         let PHONE_REGEX = "^\\d{3}\\d{3}\\d{4}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
         return phoneTest.evaluate(with: self)
     }
     
     //validate Password
-    var isValidPassword: Bool {
+    public var isValidPassword: Bool {
         if self.count >= 6 && self.count <= 32 {
             return true
         }else{
@@ -91,12 +91,12 @@ extension String {
         }
     }
     
-    func toJSON() -> Any? {
+    public func toJSON() -> Any? {
         guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }
         return try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
     }
     
-    func hideInfo(visibleCharacterCount: Int) -> String {
+    public func hideInfo(visibleCharacterCount: Int) -> String {
         return String(self.prefix(visibleCharacterCount) + String(repeating: "*", count: self.count - visibleCharacterCount))
     }
     
