@@ -53,9 +53,9 @@ public protocol EducaViewModel {
 
 open class EducaViewController<T: EducaViewModel>: UIViewController, BindableType {
  
-    public var viewModel: T!
+    open var viewModel: T!
     
-    public func bindViewModel() {
+    open func bindViewModel() {
         
     }
     
