@@ -12,7 +12,7 @@ import Foundation
 import UIKit
 import RxSwift
 
-protocol BindableType: AnyObject {
+public protocol BindableType: AnyObject {
     associatedtype ViewModelType
 
     var viewModel: ViewModelType! { get set }
@@ -43,7 +43,7 @@ extension BindableType where Self: UICollectionViewCell {
     }
 }
 
-protocol EducaViewModel {
+public protocol EducaViewModel {
     associatedtype Input
     associatedtype Output
     
@@ -51,11 +51,11 @@ protocol EducaViewModel {
 }
 
 
-class EducaViewController<T: EducaViewModel>: UIViewController, BindableType {
+open class EducaViewController<T: EducaViewModel>: UIViewController, BindableType {
  
-    var viewModel: T!
+    public var viewModel: T!
     
-    func bindViewModel() {
+    public func bindViewModel() {
         
     }
     
